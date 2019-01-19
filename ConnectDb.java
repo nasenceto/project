@@ -5,22 +5,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ConnectDb {
+public class ConnectDb  {
 
 
-	private  Connection con;
+	public  Connection conn;
 	private Statement st;
-	private ResultSet rs;
+	public ResultSet rs;
+	private String name;
 	
            public  ConnectDb() {
         	   
         	   
 	try {
 		//Class.forName("com.mysql.jbdc.Driver");
-	    con =
-	       DriverManager.getConnection("jdbc:mysql://localhost:3306/dbsales","root","1234");
+	    conn =
+	       DriverManager.getConnection("jdbc:mysql://localhost:3306/dbsales","root","");
         st=
-	    con.createStatement();
+	    conn.createStatement();
         
 
 	
@@ -33,15 +34,15 @@ public class ConnectDb {
            public void getData() {
         	
         	   try {
-        		   String query= "SELECT * FROM dbsales.data ";
+        		   String query= "SELECT * FROM data ";
         		   
         		   rs=st.executeQuery(query);
         		   System.out.println("connect with dbsales.data");
         		   while (rs.next()) {
-        			   String name=rs.getString("name");
-        			   String product=rs.getString("product");
-        			   int id=rs.getInt(1);
-        			   System.out.println(id+" : "+name+" : "+product+"  ");
+        			    name=rs.getString("name");
+        			   
+        			   
+        			   System.out.println(name);
         			   
         			   		
         			  
@@ -51,4 +52,5 @@ public class ConnectDb {
         		   System.out.println("erro cant connect db "+ex);
         	   }
            }
+       
 }
