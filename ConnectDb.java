@@ -16,23 +16,39 @@ public class ConnectDb {
         	   
         	   
 	try {
-		Class.forName("com.mysql.jbdc.Driver");
+		//Class.forName("com.mysql.jbdc.Driver");
 	    con =
-	       DriverManager.getConnection("jdbc:mysql://localhost/dbsales","root","1234");
+	       DriverManager.getConnection("jdbc:mysql://localhost:3306/dbsales","root","1234");
         st=
 	    con.createStatement();
         
 
 	
-	} catch (SQLException ex) {
-	    // handle any errors
-	    System.out.println("SQLException: " + ex.getMessage());
-	    System.out.println("SQLState: " + ex.getSQLState());
-	    System.out.println("VendorError: " + ex.getErrorCode());
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	} catch (Exception ex) {
+		System.out.println("erro: "+ex);
+		
 	}
 
 }
+           public void getData() {
+        	
+        	   try {
+        		   String query= "SELECT * FROM dbsales.data ";
+        		   
+        		   rs=st.executeQuery(query);
+        		   System.out.println("connect with dbsales.data");
+        		   while (rs.next()) {
+        			   String name=rs.getString("name");
+        			   String product=rs.getString("product");
+        			   int id=rs.getInt(1);
+        			   System.out.println(id+" : "+name+" : "+product+"  ");
+        			   
+        			   		
+        			  
+        		   }
+        	   }
+        	   catch (Exception ex) {
+        		   System.out.println("erro cant connect db "+ex);
+        	   }
+           }
 }

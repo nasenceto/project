@@ -6,6 +6,7 @@ public class Main {
 		
 	
 		ConnectDb connect=new ConnectDb();
+		connect.getData();
 		
 		
 
