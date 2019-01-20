@@ -13,6 +13,7 @@ public class ConnectDb  {
 	public ResultSet rs;
 	private String name;
 	private String date;
+	private int id;
 	
            public  ConnectDb() {
         	   
@@ -20,7 +21,7 @@ public class ConnectDb  {
 	try {
 		//Class.forName("com.mysql.jbdc.Driver");
 	    conn =
-	       DriverManager.getConnection("jdbc:mysql://localhost:3306/dbsales","root","");
+	       DriverManager.getConnection("jdbc:mysql://localhost:3306/dbsales?characterEncoding=UTF-8","root","");
         st=
 	    conn.createStatement();
         
@@ -40,11 +41,13 @@ public class ConnectDb  {
         		   rs=st.executeQuery(query);
         		   System.out.println("connect with person");
         		   while (rs.next()) {
+        			   id= rs.getInt("id");
         			    name=rs.getString("name");
+        			    
         			    date=rs.getString("date");
         			   
         			   
-        			   System.out.println(name+" "+date);
+        			   System.out.println(id+" "+name+" "+date);
         			   
         			   
         			   		

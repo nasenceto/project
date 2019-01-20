@@ -24,6 +24,7 @@ public class setText extends  ConnectDb {
 	private JTextField nameF;
 	private JDateChooser dateChooser;
 	
+	
 
 	/**
 	 * Launch the application.
@@ -64,39 +65,7 @@ public class setText extends  ConnectDb {
 		JButton save = new JButton("Save");
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String sql=" insert into person(name,date)values(?,?)";
-				
-				try {
-					pst=conn.prepareStatement(sql);
-				} catch (SQLException e) {
-					System.out.println("Error: ");
-					e.printStackTrace();
-				}
-				try {
-					pst.setString(1, nameF.getText());
-					String dateFormat=date();
-					pst.setString(2, dateFormat);
-					System.out.println(dateFormat);
-					
-					
-					pst.execute();
-					
-					
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
-			JOptionPane.showMessageDialog(frame, "Successfully saved.");
-				
+				writeDB();
 			}
 		});
 		save.setBounds(412, 155, 89, 23);
@@ -113,8 +82,68 @@ public class setText extends  ConnectDb {
 		
 	}
 	public String date() {
+
+		
+		if (dateChooser.getDate()==null) {
+			JOptionPane.showMessageDialog(frame,"Enter date!!!");
+			
+			
+		}
+		else {
 		DateFormat df= new SimpleDateFormat("yyy-MM-dd");
-		String date=df.format(dateChooser.getDate());
-		return date;
+		 String date=df.format(dateChooser.getDate());
+		  return date;
+		}
+		return null;
+		
 	}
+	
+	
+	public void writeDB(){
+		if (date()==null) {
+			
+		}
+		else {
+		 String dateFormat=date();
+       
+         
+		String sql=" insert into person(name,date)values(?,?)";
+         
+		try {
+			pst=conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			System.out.println("Error: ");
+			e.printStackTrace();
+		}
+		try {
+			
+			pst.setString(1, nameF.getText());
+		 	pst.setString(2, dateFormat);
+			System.out.println(dateFormat);
+			
+		
+		    
+		
+		
+		
+		pst.execute();
+		
+		    
+		
+	}
+		 catch (SQLException e1) {
+				System.out.println("Enter Date!");
+				e1.printStackTrace();
+			}
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+         
+		}
+		
+	}
+	
 }
