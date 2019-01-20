@@ -3,6 +3,8 @@ package salesData;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -83,7 +85,7 @@ public class setText extends  ConnectDb {
 				}
 				
 				
-			
+			JOptionPane.showMessageDialog(frame, "Successfully saved.");
 				
 			}
 		});
