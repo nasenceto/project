@@ -12,14 +12,18 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class setText extends  ConnectDb {
 	private PreparedStatement pst;
 
 	private JFrame frame;
 	private JTextField nameF;
-	private JTextField product;
+	private JDateChooser dateChooser;
+	
 
 	/**
 	 * Launch the application.
@@ -60,7 +64,7 @@ public class setText extends  ConnectDb {
 		JButton save = new JButton("Save");
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String sql=" insert into data(name)values(?)";
+				String sql=" insert into person(name,date)values(?,?)";
 				
 				try {
 					pst=conn.prepareStatement(sql);
@@ -70,7 +74,13 @@ public class setText extends  ConnectDb {
 				}
 				try {
 					pst.setString(1, nameF.getText());
+					String dateFormat=date();
+					pst.setString(2, dateFormat);
+					System.out.println(dateFormat);
+					
+					
 					pst.execute();
+					
 					
 					
 				} catch (SQLException e1) {
@@ -97,9 +107,14 @@ public class setText extends  ConnectDb {
 		panel.add(nameF);
 		nameF.setColumns(10);
 		
-		product = new JTextField();
-		product.setBounds(261, 190, 130, 20);
-		panel.add(product);
-		product.setColumns(10);
+		 dateChooser = new JDateChooser();
+		dateChooser.setBounds(261, 187, 87, 20);
+		panel.add(dateChooser);
+		
+	}
+	public String date() {
+		DateFormat df= new SimpleDateFormat("yyy-MM-dd");
+		String date=df.format(dateChooser.getDate());
+		return date;
 	}
 }

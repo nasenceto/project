@@ -12,6 +12,7 @@ public class ConnectDb  {
 	private Statement st;
 	public ResultSet rs;
 	private String name;
+	private String date;
 	
            public  ConnectDb() {
         	   
@@ -34,15 +35,17 @@ public class ConnectDb  {
            public void getData() {
         	
         	   try {
-        		   String query= "SELECT * FROM data ";
+        		   String query= "SELECT * FROM person ";
         		   
         		   rs=st.executeQuery(query);
-        		   System.out.println("connect with dbsales.data");
+        		   System.out.println("connect with person");
         		   while (rs.next()) {
         			    name=rs.getString("name");
+        			    date=rs.getString("date");
         			   
         			   
-        			   System.out.println(name);
+        			   System.out.println(name+" "+date);
+        			   
         			   
         			   		
         			  
