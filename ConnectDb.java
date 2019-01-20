@@ -34,12 +34,13 @@ public class ConnectDb  {
 
 }
            public void getData() {
+        	  
         	
         	   try {
         		   String query= "SELECT * FROM person ";
         		   
         		   rs=st.executeQuery(query);
-        		   System.out.println("connect with person");
+        		  
         		   while (rs.next()) {
         			   id= rs.getInt("id");
         			    name=rs.getString("name");

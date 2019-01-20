@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JRadioButton;
 
 public class setText extends  ConnectDb {
 	private PreparedStatement pst;
@@ -23,6 +24,11 @@ public class setText extends  ConnectDb {
 	private JFrame frame;
 	private JTextField nameF;
 	private JDateChooser dateChooser;
+	private JRadioButton RDAll;
+	private JRadioButton RDMy;
+	private String sql=null;
+	
+	
 	
 	
 
@@ -52,6 +58,7 @@ public class setText extends  ConnectDb {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 638, 394);
@@ -65,7 +72,9 @@ public class setText extends  ConnectDb {
 		JButton save = new JButton("Save");
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				getSelected();
 				writeDB();
+				
 			}
 		});
 		save.setBounds(412, 155, 89, 23);
@@ -79,6 +88,28 @@ public class setText extends  ConnectDb {
 		 dateChooser = new JDateChooser();
 		dateChooser.setBounds(261, 187, 87, 20);
 		panel.add(dateChooser);
+		
+		 RDAll = new JRadioButton("\u041E\u0431\u0449");
+		
+		RDAll.setBounds(134, 70, 109, 23);
+		panel.add(RDAll);
+		
+		RDMy = new JRadioButton("\u041C\u043E\u0439");
+		RDMy.setBounds(282, 70, 109, 23);
+		panel.add(RDMy);
+		
+	}
+	public void getSelected() {
+		if (RDAll.isSelected()) {
+			sql=" insert into person(name,date)values(?,?)";
+			JOptionPane.showMessageDialog(frame, "Product is common");
+			
+			
+		}
+		else {
+			sql=" insert into my(name,date)values(?,?)";
+			JOptionPane.showMessageDialog(frame, "Product is my ");
+		}
 		
 	}
 	public String date() {
@@ -107,7 +138,7 @@ public class setText extends  ConnectDb {
 		 String dateFormat=date();
        
          
-		String sql=" insert into person(name,date)values(?,?)";
+	
          
 		try {
 			pst=conn.prepareStatement(sql);
@@ -120,13 +151,8 @@ public class setText extends  ConnectDb {
 			pst.setString(1, nameF.getText());
 		 	pst.setString(2, dateFormat);
 			System.out.println(dateFormat);
-			
-		
-		    
-		
-		
-		
-		pst.execute();
+			pst.execute();
+			JOptionPane.showMessageDialog(frame,"Successful saved !!!");
 		
 		    
 		
@@ -145,5 +171,5 @@ public class setText extends  ConnectDb {
 		}
 		
 	}
-	
+
 }
